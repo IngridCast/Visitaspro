@@ -1,3 +1,5 @@
+import BrandLogo from './BrandLogo.jsx'
+
 function BackIcon() {
   return (
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
@@ -21,10 +23,7 @@ function BackHeader({ onBack }) {
         <BackIcon />
       </button>
       <div className="brand">
-        <img src="/logo.svg" alt="" width="40" height="40" />
-        <span>
-          Visitas<span className="brand-accent">Pro</span>
-        </span>
+        <BrandLogo />
       </div>
       <span className="header-spacer" aria-hidden="true" />
     </header>

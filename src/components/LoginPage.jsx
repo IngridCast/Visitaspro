@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../auth/useAuth.js'
+import BrandLogo from './BrandLogo.jsx'
 
 function MicrosoftLogo() {
   return (
@@ -39,7 +40,7 @@ function LoginPage() {
     <main className="login">
       <div className="login-card">
         <div className="login-brand">
-          <img src="/logo.svg" alt="" width="56" height="56" />
+          <BrandLogo className="brand-logo-login" />
           <h1>VisitasPro</h1>
           <p>Inicia sesión para continuar</p>
         </div>

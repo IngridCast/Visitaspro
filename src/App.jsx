@@ -5,6 +5,7 @@ import AgentHistory from './components/AgentHistory.jsx'
 import AgentsPage from './components/AgentsPage.jsx'
 import AppMenu from './components/AppMenu.jsx'
 import BottomNav from './components/BottomNav.jsx'
+import BrandLogo from './components/BrandLogo.jsx'
 import HomePage from './components/HomePage.jsx'
 import InventoryPage from './components/InventoryPage.jsx'
 import LoginPage from './components/LoginPage.jsx'
@@ -35,7 +36,7 @@ function MenuIcon() {
 function App() {
   const { user, logout } = useAuth()
   const isOnline = useOnlineStatus()
-  const { canInstall, install } = useInstallPrompt()
+  const { canInstall, install, isInstalled, isIOS, isSecure } = useInstallPrompt()
   const [view, setView] = useState('home')
   // Pantallas principales ya abiertas: se mantienen montadas (ocultas) para
   // conservar filtros y búsquedas al cambiar de pestaña.
@@ -281,10 +282,7 @@ function App() {
       <div hidden={inSubScreen} className="with-bottom-nav">
         <header className="app-header">
           <div className="brand">
-            <img src="/logo.svg" alt="" width="40" height="40" />
-            <span>
-              Visitas<span className="brand-accent">Pro</span>
-            </span>
+            <BrandLogo />
           </div>
           <div className="header-actions">
             {!isOnline && <span className="status offline">Sin conexión</span>}
@@ -324,6 +322,9 @@ function App() {
               pendingCount={pendingCount}
               canInstall={canInstall}
               onInstall={install}
+              isInstalled={isInstalled}
+              isIOS={isIOS}
+              isSecure={isSecure}
               onOpenUsers={() => changeView('users')}
               onOpenInventory={() => changeView('inventory')}
               onOpenReport={() => navigate({ report: true })}

@@ -20,7 +20,47 @@ npm run dev      # PWA en http://localhost:5173
 La primera vez, copia `.env.example` → `.env.local` y `server/.env.example` → `server/.env`
 (con un `JWT_SECRET` largo y aleatorio).
 
-## Scripts
+## Usar e instalar en el teléfono (PWA)
+
+Para probar desde un teléfono en la misma red Wi-Fi que la computadora,
+inicia la API y la web en dos terminales desde la carpeta del proyecto:
+
+```powershell
+npm.cmd run server
+```
+
+```powershell
+npm.cmd run dev -- --host 0.0.0.0
+```
+
+Abre en el teléfono la dirección **Network** que muestra Vite, por ejemplo
+`http://192.168.1.10:5173`. Usa `VITE_API_URL=/api` en `.env.local`: Vite envía
+las peticiones a la API de la computadora. No uses `localhost` como dirección
+de la API en el teléfono. Si cambias el puerto de la API, ajusta el destino del
+proxy en `vite.config.js`.
+
+La dirección HTTP de la red local permite revisar la interfaz y el inicio de
+sesión. Para instalar la PWA y usar el service worker y la ubicación desde el
+teléfono, necesitas una dirección **HTTPS con certificado válido**.
+
+Para publicar, ejecuta `npm.cmd run build`, sirve `dist/` mediante HTTPS y
+configura un proxy de `/api/*` hacia la API (quitando el prefijo `/api`). Otra
+opción es definir `VITE_API_URL` con la URL HTTPS pública de la API antes de
+compilar y añadir la URL de la web a `CORS_ORIGIN` en `server/.env`.
+`vite preview` es para verificar la compilación local, no para publicar.
+
+Desde la dirección HTTPS:
+
+- **Android:** inicia sesión, abre Perfil y toca **Instalar VisitasPro**.
+  Si no aparece el botón, busca **Instalar aplicación** en el menú de Chrome.
+- **iPhone:** abre la web en Safari, toca **Compartir → Agregar a pantalla de
+  inicio** y confirma. Si aparece **Abrir como app web**, déjalo activado.
+- Abre el icono de VisitasPro, inicia sesión si se solicita y toca
+  **Inicio → Sincronizar**. Cada teléfono guarda su propia copia de agentes,
+  visitas e inventario. Las fotos y la información anterior al periodo guardado
+  requieren conexión; los cambios pendientes se envían al volver a sincronizar.
+
+## Comandos disponibles
 
 | Comando                       | Descripción                                          |
 | ----------------------------- | ---------------------------------------------------- |
@@ -43,7 +83,7 @@ La app pide iniciar sesión antes de mostrar el contenido y el botón de instala
    3. Copia el *Id. de aplicación (cliente)* y el *Id. de directorio (inquilino)* en `.env.local`:
 
 ```
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=/api
 VITE_AZURE_CLIENT_ID=<id de aplicación>
 VITE_AZURE_TENANT_ID=<id del inquilino>
 ```

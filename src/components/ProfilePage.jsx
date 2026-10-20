@@ -1,3 +1,5 @@
+import InstallCard from './InstallCard.jsx'
+
 function initials(name) {
   return (name ?? '')
     .split(/\s+/)
@@ -12,6 +14,9 @@ function ProfilePage({
   pendingCount,
   canInstall,
   onInstall,
+  isInstalled,
+  isIOS,
+  isSecure,
   onOpenUsers,
   onOpenInventory,
   onOpenReport,
@@ -62,15 +67,11 @@ function ProfilePage({
             Administrar usuarios
           </button>
         )}
-        {canInstall && (
-          <button type="button" onClick={onInstall}>
-            Instalar aplicación
-          </button>
-        )}
         <button type="button" className="secondary danger" onClick={onLogout}>
           Cerrar sesión
         </button>
       </div>
+      <InstallCard {...{ canInstall, onInstall, isInstalled, isIOS, isSecure }} />
     </div>
   )
 }
